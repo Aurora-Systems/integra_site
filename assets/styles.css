@@ -865,7 +865,63 @@
   .subhero { padding: 40px 0 48px; }
 }
 
-/* Hero visual — reduce aspect ratio height on small so it doesn't take all screen */
+/* Hero visual — mobile redesign: drop absolute positioning, use grid flow */
 @media (max-width: 640px) {
-  .hero-visual { aspect-ratio: unset; height: 380px; }
+  .hero-visual {
+    aspect-ratio: unset;
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 10px;
+  }
+  /* Hide decorative background grid */
+  .hero-visual .grid-decor { display: none; }
+
+  /* Remove absolute positioning from all panels */
+  .hero-visual .panel {
+    position: static;
+    width: auto !important;
+    inset: auto;
+    top: auto; right: auto; bottom: auto; left: auto;
+  }
+
+  /* Main panel spans full width */
+  .hero-visual .panel.main {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    padding: 16px;
+    gap: 12px;
+  }
+
+  /* Stack the three flow steps vertically instead of 3 columns */
+  .hero-visual .flow {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  /* KPI panel — left cell */
+  .hero-visual .panel.kpi {
+    grid-column: 1;
+    grid-row: 2;
+    padding: 14px;
+    gap: 8px;
+  }
+
+  /* Bot panel — right cell */
+  .hero-visual .panel.bot {
+    grid-column: 2;
+    grid-row: 2;
+    padding: 12px;
+    gap: 8px;
+  }
+
+  /* Scale down large KPI number */
+  .hero-visual .kpi-num { font-size: 26px; }
+
+  /* Let bot messages fill their column naturally */
+  .hero-visual .bot-msg { max-width: none; font-size: 11.5px; }
+
+  /* Tighten step padding */
+  .hero-visual .step { padding: 10px 12px; }
 }
